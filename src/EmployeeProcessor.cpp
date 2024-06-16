@@ -1,6 +1,8 @@
 #include "EmployeeProcessor.h"
-#include <fstream>  // Include for file operations
-#include <iostream> // Include for printing to console
+#include <fstream>           // Include for file operations
+#include <iostream>          // Include for printing to console
+#include <nlohmann/json.hpp> // Include for JSON parsing
+#include <tinyxml2.h>        // Include for XML parsing
 
 bool EmployeeProcessor::loadFile(const std::string &filename)
 {
@@ -48,15 +50,56 @@ bool EmployeeProcessor::loadFile(const std::string &filename)
     return true;
 }
 
+// Parses JSON content into Employee objects. Expects a JSON with an "employees" array.
 bool EmployeeProcessor::parseJSON(const std::string &content)
 {
-    std::cout << "Parsing JSON..." << std::endl;
-    return true;
+    try
+    {
+        auto json = nlohmann::json::parse(content); // Deserialize the JSON string into a json object
+        for (const auto &item : json["employees"])  // Process each employee in the JSON array
+        {
+            Employee emp;
+            emp.name = item["name"];
+            emp.id = item["id"];
+            emp.department = item["department"];
+            emp.salary = item["salary"];
+            employees.push_back(emp); // Add to the employee list
+        }
+        return true;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "JSON parsing error: " << e.what() << std::endl;
+        return false;
+    }
 }
 
+// Parses XML content into Employee objects. Expects an XML with a root <employees> element.
 bool EmployeeProcessor::parseXML(const std::string &content)
 {
-    std::cout << "Parsing XML content..." << std::endl;
+    tinyxml2::XMLDocument doc;
+    if (doc.Parse(content.c_str()) != tinyxml2::XML_SUCCESS)
+    {                                                                      // Parse the XML content
+        std::cerr << "XML parsing error: " << doc.ErrorStr() << std::endl; // Log parsing errors
+        return false;
+    }
+
+    tinyxml2::XMLElement *root = doc.FirstChildElement("employees");
+    if (!root)
+    {
+        std::cerr << "XML structure error: Missing <employees>." << std::endl; // Check for correct XML structure
+        return false;
+    }
+
+    for (tinyxml2::XMLElement *e = root->FirstChildElement("employee"); e != nullptr; e = e->NextSiblingElement("employee"))
+    {
+        Employee emp;
+        emp.name = e->FirstChildElement("name")->GetText();
+        emp.id = atoi(e->FirstChildElement("id")->GetText());
+        emp.department = e->FirstChildElement("department")->GetText();
+        emp.salary = atof(e->FirstChildElement("salary")->GetText());
+        employees.push_back(emp); // Add to the employee list
+    }
     return true;
 }
 
