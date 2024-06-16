@@ -1,4 +1,12 @@
-build/
-*.o
+# Binaries and Executables
+/EmpDataProcessor
 *.exe
+*.out
+*.bin
+
+# Object files
+*.o
+*.obj
+
+# Ignore Visual Studio Code settings directory
 .vscode/
