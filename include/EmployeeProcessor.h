@@ -18,12 +18,15 @@ class EmployeeProcessor
 {
 public:
     bool loadFile(const std::string &filename); // Load and parse data from a file
-    void printEmployees() const;
+    double calculateAverageSalary() const;
+    void printHighestPaidEmployee() const;
+    void sortAndPrintEmployeesByID();
 
 private:
     std::vector<Employee> employees;
     bool parseJSON(const std::string &content);
     bool parseXML(const std::string &content);
+    void printEmployeeDetails(const Employee &emp) const; // Helper method to print a single employee's details
 };
 
 #endif

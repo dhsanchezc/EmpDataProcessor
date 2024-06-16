@@ -103,13 +103,54 @@ bool EmployeeProcessor::parseXML(const std::string &content)
     return true;
 }
 
-void EmployeeProcessor::printEmployees() const
+void EmployeeProcessor::printEmployeeDetails(const Employee &emp) const
 {
+    std::cout << "Employee: " << emp.name
+              << ", ID: " << emp.id
+              << ", Department: " << emp.department
+              << ", Salary: $" << emp.salary << std::endl;
+}
+
+double EmployeeProcessor::calculateAverageSalary() const
+{
+    if (employees.empty())
+        return 0.0; // Avoid division by zero
+
+    double totalSalary = 0.0;
     for (const auto &emp : employees)
-    { // Loop through all employees
-        std::cout << "Employee: " << emp.name
-                  << ", ID: " << emp.id
-                  << ", Department: " << emp.department
-                  << ", Salary: $" << emp.salary << std::endl;
+    {
+        totalSalary += emp.salary;
+    }
+    return totalSalary / employees.size();
+}
+
+void EmployeeProcessor::printHighestPaidEmployee() const
+{
+    if (employees.empty())
+    {
+        std::cout << "No employees data available." << std::endl;
+        return;
+    }
+
+    const Employee *highestPaid = &employees[0];
+    for (const auto &emp : employees)
+    {
+        if (emp.salary > highestPaid->salary)
+        {
+            highestPaid = &emp;
+        }
+    }
+
+    printEmployeeDetails(*highestPaid);
+}
+
+void EmployeeProcessor::sortAndPrintEmployeesByID()
+{
+    std::sort(employees.begin(), employees.end(), [](const Employee &a, const Employee &b)
+              { return a.id < b.id; });
+
+    for (const auto &emp : employees)
+    {
+        printEmployeeDetails(emp);
     }
 }

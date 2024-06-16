@@ -21,7 +21,22 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    // Print the results
-    ep.printEmployees();
+    // Core functionality
+
+    // Calculate and display the average salary
+    double averageSalary = ep.calculateAverageSalary();
+    std::cout << "Average Salary: $" << averageSalary << std::endl
+              << std::endl;
+
+    // Identify and print the highest paid employee
+    std::cout << "Highest Paid Employee:\n";
+    ep.printHighestPaidEmployee();
+    std::cout << std::endl;
+
+    // Sort and print employees by ID
+    std::cout << "Employees sorted by ID:" << std::endl;
+    ep.sortAndPrintEmployeesByID();
+    std::cout << std::endl;
+
     return 0;
 }
