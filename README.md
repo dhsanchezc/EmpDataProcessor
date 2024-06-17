@@ -10,9 +10,11 @@ This application processes employee data from JSON and XML files, extracting inf
 
 ## Dependencies
 Before building and running the project, you need to install the following libraries:
+- **g++**: The GNU C++ compiler.
+- **CMake**: Used for building the project.
 - **TinyXML-2**: Used for parsing XML files.
 - **nlohmann/json**: Used for parsing JSON files.
-- **Google Test**: Used for running unit tests to validate the functionality.
+- **Google Test**: Used for running unit tests to validate the functionality (use the `setup.sh` script for this task).
 
 ## Setup
 To simplify the setup process, a setup script (`setup.sh`) is provided in the root directory. This script automates the setup of Google Test and ensures all submodules are properly initialized.
@@ -45,7 +47,7 @@ To run the application and process data files, use:
 ./EmpDataProcessor <filename>
 ```
 
-Replace <filename> with the path to a valid JSON or XML file containing employee data.
+Replace <filename> with the path to a valid JSON or XML file containing employee data. You can use the files `./data/employees.json` and `./data/employees.xml` for testing.
 
 ## Using the Run Script
 The `run.sh` script simplifies the execution of the application. To use the script, simply run the following command from the project's root directory:
@@ -60,7 +62,7 @@ This script will execute the application with predefined settings or files, as s
 After building the project, you can run the integrated tests to ensure all functionalities are working as expected:
 
 ```
-make test
+make tests
 ```
 
-This command executes the test suite compiled during the build process, validating both the basic functionalities and error handling.
+This command executes the test suite compiled during the build process, validating both the basic functionalities and error handling using the dummy files in `tests/data/`.
