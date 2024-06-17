@@ -17,8 +17,8 @@ EmployeeProcessor.o: src/EmployeeProcessor.cpp
 	$(CXX) $(CXXFLAGS) -c src/EmployeeProcessor.cpp -o EmployeeProcessor.o
 
 # Test targets
-tests: test_main.o json_tests.o EmployeeProcessor.o
-	$(CXX) $(CXXFLAGS) test_main.o json_tests.o EmployeeProcessor.o -o run_tests $(GTEST_LIBS) $(LDFLAGS)
+tests: test_main.o json_tests.o xml_tests.o core_functionality_tests.o EmployeeProcessor.o
+	$(CXX) $(CXXFLAGS) test_main.o json_tests.o xml_tests.o core_functionality_tests.o EmployeeProcessor.o -o run_tests $(GTEST_LIBS) $(LDFLAGS)
 	./run_tests
 
 test_main.o: tests/test_main.cpp
@@ -26,6 +26,12 @@ test_main.o: tests/test_main.cpp
 
 json_tests.o: tests/json_tests.cpp
 	$(CXX) $(CXXFLAGS) -c tests/json_tests.cpp -o json_tests.o
+
+xml_tests.o: tests/xml_tests.cpp
+	$(CXX) $(CXXFLAGS) -c tests/xml_tests.cpp -o xml_tests.o
+
+core_functionality_tests.o: tests/core_functionality_tests.cpp
+	$(CXX) $(CXXFLAGS) -c tests/core_functionality_tests.cpp -o core_functionality_tests.o
 
 # Build Google Test
 gtest:

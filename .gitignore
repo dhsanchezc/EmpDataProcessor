@@ -11,3 +11,6 @@ run_tests
 
 # Ignore Visual Studio Code settings directory
 .vscode/
+
+# Ignore output directories
+output/

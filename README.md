@@ -47,6 +47,15 @@ To run the application and process data files, use:
 
 Replace <filename> with the path to a valid JSON or XML file containing employee data.
 
+## Using the Run Script
+The `run.sh` script simplifies the execution of the application. To use the script, simply run the following command from the project's root directory:
+
+```
+./run.sh
+```
+
+This script will execute the application with predefined settings or files, as specified within the script.
+
 ## Running Tests
 After building the project, you can run the integrated tests to ensure all functionalities are working as expected:
 
