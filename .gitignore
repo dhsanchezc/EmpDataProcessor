@@ -1,5 +1,6 @@
 # Binaries and Executables
 /EmpDataProcessor
+run_tests
 *.exe
 *.out
 *.bin
